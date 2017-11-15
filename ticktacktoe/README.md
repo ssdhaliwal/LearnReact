@@ -7,6 +7,6 @@ The current example allows child component to register callbacks with the parent
 - - Board -> in constructor register the callbacks from Board back to the Game using array of callback functions.
 - - Game -> use registered callbacks to execute code within Board.
 
-Please note this was an experiment; but there are times when a parent class needs to manage state and allow child classes to do the work.  This modified example uses Game to manage the state of the board.
+Please note this is an experiment; but there are times when a parent class needs to manage state and allow child classes to do the work.  This modified example uses Game to manage the state of the board.
 
-Convoluted, but it works!!! working on updating the comments in code :)
+How my mind works!!!
