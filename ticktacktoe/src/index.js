@@ -7,7 +7,7 @@ class Square extends React.Component {
     return (
       // create button and link the onClick/value to the passed values
       // from the Board component
-      <button className="square" onClick={() => this.props.onClick()}>
+      <button className={this.props.className} onClick={() => this.props.onClick()}>
         {this.props.value}
       </button>
     );
@@ -21,6 +21,7 @@ class Board extends React.Component {
     // store the current state of the square and boolean for X/O
     this.state = {
       squares: Array(9).fill(null),
+      winner: null,
       xIsNext: true
     };
 
@@ -42,6 +43,7 @@ class Board extends React.Component {
     // update local state which will force redraw
     this.setState({
       squares: current.squares.slice(),
+      winner: null,
       xIsNext: (message.move % 2) === 0
     });
 
@@ -81,8 +83,9 @@ class Board extends React.Component {
 
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
+
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return lines[i];
       }
     }
 
@@ -102,9 +105,13 @@ class Board extends React.Component {
     // update the state of the square
     squares[i] = (this.state.xIsNext ? 'X' : 'O');
 
+    // check if the move is a winning move
+    let winner = this.calculateWinner(squares);
+    
     // store the state - which causes redraw of that specific square
     this.setState({
       squares: squares,
+      winner: winner,
       xIsNext: !this.state.xIsNext
     });
 
@@ -117,8 +124,16 @@ class Board extends React.Component {
 
   // call to draw the square based on the value stored in state
   renderSquare(i) {
+    // update class for winning match
+    let className = "square";
+
+    if ((this.state.winner) && 
+        (this.state.winner.indexOf(i) >= 0)) {
+      className += " square-win";
+    }
+
     return (
-      <Square
+      <Square className={className}
         value={this.state.squares[i]}
         onClick={() => this.handleClick(i)}
       />
@@ -131,7 +146,7 @@ class Board extends React.Component {
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + this.state.squares[winner[0]];
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
