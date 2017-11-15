@@ -31,16 +31,24 @@ class Board extends React.Component {
     this.registerCallbacks();
   }
 
-  callback001(value) {
-    console.log("001, " + value);
+  jumpTo(value) {
+    value.history = value.history.slice(0, value.move + 1);
+    const current = value.history[value.move];
+
+    this.setState({
+      squares: current.squares.slice(),
+      xIsNext: (value.move % 2) === 0
+    });
+
+    this.props.saveMove({
+      "action":"replace",
+      "history":value.history
+    });
   }
-  callback002(value) {
-    console.log("002, " + value);
-  }
+
   registerCallbacks() {
     let callbacks = {
-      callback001: this.callback001.bind(this),
-      callback002: this.callback002.bind(this)
+      callbackJumpTo: this.jumpTo.bind(this)
     }
 
     this.props.registerCallbacks(callbacks);
@@ -80,7 +88,10 @@ class Board extends React.Component {
       xIsNext: !this.state.xIsNext
     });
 
-    this.props.saveMove(squares);
+    this.props.saveMove({
+      "action":"add",
+      "squares":squares
+    });
   }
 
   renderSquare(i) {
@@ -132,7 +143,6 @@ class Game extends React.Component {
       history: [{
         squares: Array(9).fill(null)
       }],
-      stepNumber: 0,
       callbacks: {}
     };
   }
@@ -144,15 +154,24 @@ class Game extends React.Component {
   }
     
   jumpTo(move) {
-    this.state.callbacks.callback001(move);
+    this.state.callbacks.callbackJumpTo({
+      "move":move, 
+      "history":this.state.history
+    });
   }
 
-  saveMove(squares) {
-    this.setState({
-      history: this.state.history.concat([{
-        squares: squares
-      }])
-    });
+  saveMove(value) {
+    if (value.action === "add") {
+      this.setState({
+        history: this.state.history.concat([{
+          squares: value.squares
+        }])
+      });
+    } else {
+      this.setState({
+        history: value.history
+      });
+    }
   }
 
   render() {
