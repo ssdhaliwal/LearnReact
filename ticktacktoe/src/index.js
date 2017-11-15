@@ -151,24 +151,24 @@ class Board extends React.Component {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
+    // create the grid dynamically
+    let grid = [];
+    for(let i=0; i<=8; i++) {
+      grid.push(
+        <div key={"gridId" + i} className="board-row">
+          {this.renderSquare(i)}
+          {this.renderSquare(i+1)}
+          {this.renderSquare(i+2)}
+        </div>
+      );
+
+      i += 2;
+    }
+
     return (
       <div>
         <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {grid}
       </div>
     );
   }
@@ -226,7 +226,7 @@ class Game extends React.Component {
   render() {
     // creates the layout for the game status and available items
     // for restore based on current history
-    const moves = this.state.history.map((step, move) => {
+    const moves = this.state.history.map((step, move) => {      
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';

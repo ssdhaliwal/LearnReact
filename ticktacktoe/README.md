@@ -10,5 +10,6 @@ The current example allows child component to register callbacks with the parent
 Please note this is an experiment; but there are times when a parent class needs to manage state and allow child classes to do the work.  This modified example uses Game to manage the state of the board.
 
 - added highlight for winning squares
+- added dynamic grid creation with one loop :)
 
 How my mind works!!!
