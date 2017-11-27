@@ -1,0 +1,54 @@
+/* adjust bootstrap default paddings */
+
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 0 0 0 0;
+    max-width: none;
+    padding: 0px;
+}
+
+/* container adjusted */
+
+.container {
+    margin: 0 0 0 0;
+    max-width: none;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.title-area {
+    background-color: #f7f0ca;
+    color: rgb(0, 0, 0);
+    padding: 5px;
+}
+
+.board-area {
+    position: absolute;
+    padding: 2px;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+.status-area {
+    position: absolute;
+    background-color: #000000;
+    color: white;
+    padding: 2px;
+    bottom: 0;
+}
+
+.vcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.margin-zero {
+    margin: 0 0 0 0;
+    padding: 0px;
+}
+
+.btn-width {
+    width: 45px;
+}

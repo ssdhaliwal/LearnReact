@@ -1,0 +1,67 @@
+https://msdn.microsoft.com/en-us/office/office365/api/contacts-rest-operations
+
+{
+  "id": "EQAAABYAAAAmP1Ln1wcHRariNdTMGAO9AAAV41eC",
+  "status": "active" | "disabled" | "pending",
+  "taxonomy": [],
+  "dtCreated": "2014-10-22T20:38:18Z",
+  "dtUpdated": "2014-10-22T20:38:19Z",
+  "dob": null,
+  "getFullName": (),
+  "getInitials": (),
+  "name": {
+	  "title": null,
+	  "firstName": "Pavel",
+	  "middleName": null,
+	  "lastName": "Bansky"
+	}
+  "nickName": null,
+  "generation": null,
+  "socialInfo": [
+    {
+	  "type": "email" | "twitter" | "website" | "...",
+      "name": "Pavel Bansky"
+      "address": "pavelb@a830edad9050849NDA1.onmicrosoft.com",
+    }
+  ],
+  "workInfo": {
+	  "jobTitle": null,
+	  "companyName": null,
+	  "department": null,
+	  "profession": null,
+	  "assistantName": null,
+	  "manager": null,
+	  "homePage": null,
+	  "dtLastContacted": null,
+	  "hours": null
+	},
+  "phones": [
+	{
+		"type": "mobile" | "work" | "home" | "alternate",
+		"number": ""
+	}
+  ],
+  "address": [
+	{
+	"Type": "home" | "vacation" | "work" | "...",
+    "Street": null,
+    "City": null,
+    "State": null,
+    "CountryOrRegion": null,
+    "PostalCode": null
+	}
+  ],
+  "personalInfo": {
+	  "Anniversary": null,
+	  "SpouseName": null,
+	  "SpouseDob": null,
+	  "Children": [
+		{
+			"sex": "male" | "female",
+			"name": "",
+			"dob": ""
+		}
+	  ],
+  },
+  "notes": ""
+}

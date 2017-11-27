@@ -1,0 +1,83 @@
+ReactJS Build for Tomcat
+==================================
+
+-- as administrator
+npm install -g create-react-app
+npm install -g bootstrap
+npm install -g lodash
+
+create-react-app {appname}
+cd {appname}
+>> code your app
+
+-- development server
+npm start
+http://localhost:3000/
+
+yarn start
+http://localhost:5000/
+
+-- deployment build
+yarn
+yarn run build			 (or) npm run build
+yarn global add serve
+serve -s build
+http://localhost:5000/
+
+-- deployment to tomcat
+Create directory under webapps folder
+copy all items from build to webapps/{folder}
+edit index.html
+remove the / slash from manifest, icon, css, and script references
+edit service-worker.js
+remove the / from precacheConfig array
+
+-- if linking to build location update apache.conf
+# To host on root path just use  "<Location />" for http://mydomainname.in
+# To host on non-root path use "<Location /myreactapp>" for http://mydomainname.in/mypath
+# If non-root path, don't forgot to add "homepage": "/myreactapp" in your app's package.json
+<VirtualHost *:80>
+	ServerName mydomainname.in
+	DirectoryIndex index.html
+	DocumentRoot /var/www/html
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+	<Location /myreactapp >
+		RewriteEngine on
+		RewriteBase /
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteRule . /myreactapp/index.html [L]
+		
+		RewriteCond %{REQUEST_FILENAME} !-l
+		RewriteRule ^.*$ / [L,QSA]
+	</Location>
+</VirtualHost>
+
+-------------------------------------------------------------
+----- extra info - use react-tools to convert jsx to js -----
+-------------------------------------------------------------
+https://shripadk.github.io/react/docs/getting-started.html
+https://shripadk.github.io/react/docs/tutorial.html
+
+npm install -g react-tools
+"c:\users\seraj dhaliwal\appdata\roaming\npm\jsx" --watch site/ build/
+
+-------------------------------------------------------
+----- extra info - use babel to convert jsx to js -----
+-------------------------------------------------------
+https://codeburst.io/its-easy-setting-up-react-and-webpack-eb9ecaef5094
+
+npm install -g babel-cli
+-- npm install --save-dev babel-cli
+npm install --save-dev babel-plugin-transform-react-jsx
+npm install babel-preset-react
+
+-- create .babelrc with following info
+{
+  "plugins": ["transform-react-jsx"]
+}
+
+"C:\Users\Seraj Dhaliwal\AppData\Roaming\npm\babel" --presets react src --watch --out-dir public/javascripts
